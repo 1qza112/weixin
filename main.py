@@ -51,18 +51,17 @@ def get_weather(region):
         # 获取地区的location--id
         location_id = response["location"][0]["id"]
     weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
-    #weather_url1 = "https://devapi.qweather.com/v7/weather/3d?location={}&key={}".format(location_id, key)
+    
     response = get(weather_url, headers=headers).json()
-   # response1 = get(weather_url1, headers=headers).json()
+   
     # 天气
     weather = response["now"]["text"]
     # 当前温度
     temp = response["now"]["temp"] + u"\N{DEGREE SIGN}" + "C"
     # 风向
     wind_dir = response["now"]["windDir"]
-    #预报当天最高温度
-    tempMax=response1["now"]["feelsLike"]
-    return weather, temp, wind_dir,tempMax
+   
+    return weather, temp, wind_dir
  
  
 def get_birthday(birthday, year, today):
@@ -165,10 +164,7 @@ def send_message(to_user, access_token, region_name, weather, temp, wind_dir, no
                 "value": wind_dir,
                 "color": get_color()
             },
-            "tempMax": {
-                 "value": tempMax,
-                "color": get_color()
-            },
+         
             "love_day": {
                 "value": love_days,
                 "color": get_color()
@@ -237,5 +233,5 @@ if __name__ == "__main__":
         note_ch, note_en = get_ciba()
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, region, weather, temp, wind_dir, tempMax, note_ch, note_en)
+        send_message(user, accessToken, region, weather, temp, wind_dir, note_ch, note_en)
     os.system("pause")
