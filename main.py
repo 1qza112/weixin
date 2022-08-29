@@ -51,7 +51,7 @@ def get_weather(region):
         # 获取地区的location--id
         location_id = response["location"][0]["id"]
     weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
-    weather_url1 = "https://dev.qweather.com/docs/api/weather/daily-forecast?location={}&key={}".format(location_id, key)
+    weather_url1 = "https://devapi.qweather.com/v7/weather/3d?location={}&key={}".format(location_id, key)
     response = get(weather_url, headers=headers).json()
     response1 = get(weather_url1, headers=headers).json()
     # 天气
